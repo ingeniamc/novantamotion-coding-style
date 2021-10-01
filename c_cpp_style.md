@@ -78,6 +78,19 @@ Avoid the use of global variables
 - Any private methods should go towards the end of the class, after the member variables.
 - Constructors that take a single parameter should usually be marked explicit. Obviously there are cases where you do want implicit conversion, but always think about it carefully before writing a non-explicit constructor.
 
+### Loops
+- C for loops must declare the iterating variables before the loop, to give support for C89.
+>    uint8_t u8i;
+>    for (u8i = (uint8_t)0U; u8i <= (uint8_t)3U; u8i++)
+>    {
+>        
+>    }
+- In Cpp, declaration inside of the loop is allowed, as the oldest Cpp (C++98) already supported that.  This style is prefered to reduce the scope of the variable to the loop.
+>    for (uint8_t u8i = (uint8_t)0U; u8i <= (uint8_t)3U; u8i++)
+>    {
+>        
+>    }
+
 ### Naming
 - Filenames should be all lowercase and can include optionally underscores '_'. 
 - Function names are also written in camel-case, but always begin with a capital letter.
