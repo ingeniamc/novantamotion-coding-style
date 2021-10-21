@@ -383,18 +383,15 @@ Avoid the use of global variables
 >     }
 
 - Default case must be always present when using switch.
-- A case could finish without a break to allow falling through another case but it should clearly documented as as in the following example. If it's empty it has to be clearly documented also.
+- A case could finish without a break to allow falling through another case but it should be clearly documented as as in the following example. If it's empty it has to be clearly documented also.
 
 >     switch (...)
 >     {
->         case 1:
->     	      ...
->     	      /* FALL THROUGH */
->     
->         case 2:
+>         case SOME_CASE_1:
+>     	      /* Fallthrough */
+>         case SOME_CASE_2:
 >     	      /* Code */
 >     	      break;
->     
 >         default:
 >     		  /* Nothing */
 >     	      break;
