@@ -7,15 +7,16 @@ If for any reason any of the below rules conflicts with a MISRA rule, this last 
 
 
 ### Version
-Version of C/C++ code use are strongly linked with the development platform. Ingenia repositories cover from very low performance micro-controllers up to standard desktop PCs. Details about C/C++ version and extensions must be defined on every repository.
+Version of C/C++ code use are strongly linked with the development platform. Ingenia repositories cover from very low performance micro-controllers
+up to standard desktop PCs. Details about C/C++ version and extensions must be defined on every repository.
 
 ### Types
 - Use <stdint.h> types whenever is possible.
 - if <stdint.h> is not available, basic types must include the size information.
 
 >     unsigned integer /* Not allowed */
->     UINT32 /* allowed */
->     uint32_t /* allowed and prefered */
+>     UINT32 /* Allowed */
+>     uint32_t /* Allowed and preferred */
 
 > This is very critical in embedded systems where the size of an integer varies between MCUs.
 
@@ -65,18 +66,22 @@ Avoid the use of global variables
 
 ### Classes
 
-- Declare a class's public section first. Any protected items come next, and then private ones. The order of items should roughly correspond to how likely a reader is to be interested in them, so the private implementation details come last.
-- For simple, short inline classes, especially ones inside a cpp file that are only used locally for a limited purpose, they should probably use struct rather than class since you’re generally going to have all public members, and this will save a line of code doing the initial public:
-- The layout for inherited classes is to put them to the right of the class name, vertically aligned. We leave a single space before the class name, and 2-3 spaces after the class name before the colon, e.g.
+- Declare a class's public section first. Any protected items come next, and then private ones. The order of items should roughly correspond to how likely a reader
+is to be interested in them, so the private implementation details come last.
+- For simple, short inline classes, especially ones inside a cpp file that are only used locally for a limited purpose, they should probably use struct rather than
+class since you’re generally going to have all public members, and this will save a line of code doing the initial public:
+- The layout for inherited classes is to put them to the right of the class name, vertically aligned. We leave a single space before the class name, and 2-3 spaces
+after the class name before the colon, e.g.
 
 >     class Thing  : public Foo,
->      			   private Bar
+>                    private Bar
 >     {
 
 - Always include the public/private/protected keyword for each inherited class
 - Put a class's member variables (which should almost always be private, of course), after all the public and protected method declarations.
 - Any private methods should go towards the end of the class, after the member variables.
-- Constructors that take a single parameter should usually be marked explicit. Obviously there are cases where you do want implicit conversion, but always think about it carefully before writing a non-explicit constructor.
+- Constructors that take a single parameter should usually be marked explicit. Obviously there are cases where you do want implicit conversion, but always think
+about it carefully before writing a non-explicit constructor.
 
 ### Loops
 - C for loops must declare the iterating variables before the loop, to give support for C89.
@@ -105,9 +110,11 @@ Avoid the use of global variables
 - Class names are also written in camel-case, but always begin with a capital letter, e.g. MyClassName
 - Namespaces are also written in camel-case, but always begin with a capital letter. e.g. MyClassName
 - In C language, namespaces can be simulated by adding a prefix + underscore before the function / variable.
-- Leading or trailing underscores are never allowed in variable names! Leading underscores have a special status for use in standard library code, so to use them in use code looks quite jarring.
+- Leading or trailing underscores are never allowed in variable names! Leading underscores have a special status for use in standard library code,
+so to use them in use code looks quite jarring.
 - If you really have to write a macro, it must be ALL_CAPS_WITH_UNDERSCORES. As they’re the only symbols written in all-caps, this makes them easy to spot.
-- Since macros have no namespaces, their names must be guaranteed not to clash with macros or symbols used in other libraries or 3rd party code, so you should start them with something unique to your project.
+- Since macros have no namespaces, their names must be guaranteed not to clash with macros or symbols used in other libraries or 3rd party code, so you should
+start them with something unique to your project.
 - Macros should be aligned between them to facilitate readability.
 
 >     #define MAX_ITERATIONS 25
@@ -168,9 +175,11 @@ Avoid the use of global variables
 >      * @brief Description of the main objective of this file
 >      */ 
 
-- In order to generate an easy to read documentation, the files should be grouped based on their functionality. The grouping is done on header files and are used to give to the developer an overview of the hierarchy of the project.
+- In order to generate an easy to read documentation, the files should be grouped based on their functionality.
+The grouping is done on header files and are used to give to the developer an overview of the hierarchy of the project.
 
-> All groups must be composed by an ID and a "public label". On doxygen, the first word after the @addtogroup command is considered the group ID. and the others the "public label"
+> All groups must be composed by an ID and a "public label". On doxygen, the first word after the @addtogroup command is considered
+the group ID, and the others the "public label"
 
 >     /**
 >      * @file FileName.h
@@ -178,20 +187,21 @@ Avoid the use of global variables
 >      * 
 >      * @addtogroup MainGroup MainGroup Label
 >      * @{
->      * 		@addtogroup Subgroup SubGroup Label
->      * 		@{
+>      *         @addtogroup Subgroup SubGroup Label
+>      *         @{
 >      */ 
 >      
 >     Code
 >      
 >     /**
->      * 		@}
+>      *         @}
 >      * @}
 >      */
 >      
 >     END OF FILE
 
-- In this example, if the developer want to do a reference to the group MainGroup, it has to use the ID MainGroup. However, on the output documentation, the users will read "MainGroup Label"
+- In this example, if the developer want to do a reference to the group MainGroup, it has to use the ID MainGroup.
+However, on the output documentation, the users will read "MainGroup Label"
 - Comments must be written using Doxygen tags using the /** prefix, the /*! prefix is forbidden.
 - Comments of private or static objects should be done using Doxygen but it is not mandatory.
 - Use the following general Doxygen template:
@@ -252,12 +262,12 @@ Avoid the use of global variables
 
 >     statement. E.g.
 >     {
->        int xyz = 123;
+>         uint16_t u16Xyz = (uint16_t)123U;
 >        
->         if (xyz != 0)
->        {
->            foo();
->        }
+>         if (u16Xyz != (uint16_t)0U)
+>         {
+>             foo();
+>         }
 >        
 >         foobar();
 >     }
@@ -270,27 +280,29 @@ Avoid the use of global variables
 >     SomeObject* myObject = getAPointer();
 >     SomeObject& myObject = getAReference();
 
-- When splitting expressions containing operators (or the dot operator) across multiple lines each new line should begin with the operator symbol.
+- When splitting expressions containing operators (or the dot operator) across multiple lines each new line should begin
+with the operator symbol.
 
 >     auto xyz = foo + bar /* This makes it clear at a glance */
->                 + func (123) /* that all the lines must be continuations of */
+>                 + func(123) /* that all the lines must be continuations of */
 >                 - def + 4321; /* the preceding ones. */
 >     
 >     auto xyz = foo + bar + /* Not so good.. It takes more effort here */
->                func (123) - /* to see that "func" here is actually part */
+>                func(123) - /* to see that "func" here is actually part */
 >                def + 4321; /* of the previous line and not a new statement. */
 >     
 >     /* Good: */
->     auto t = AffineTransform::translation (x, y)
->                              .scaled (2.0f)
->                              .rotated (0.5f);
+>     auto t = AffineTransform::translation(x, y)
+>                              .scaled(2.0f)
+>                              .rotated(0.5f);
 >     
 >     /* Bad: */
->     auto t = AffineTransform::translation (x, y).
->         scaled (2.0f).
->        rotated (0.5f);
+>     auto t = AffineTransform::translation(x, y).
+>         scaled(2.0f).
+>        rotated(0.5f);
 
-- The general rule for the length line is max 80 characters. However it is not a strict rule, it must be always prioritized the visibility of the code in front of this rule.
+- The general rule for the length line is max 80 characters. However it is not a strict rule, it must be always prioritized
+the visibility of the code in front of this rule.
 
 - Comments has to use /* */.
 - Always leave a space before the text in a single line /* comment */
@@ -298,14 +310,16 @@ Avoid the use of global variables
 
 >     0xABCDEF
 
-- Integer literals & explicit cast: Literal and explicit cast must be used. Take into account the architecture you are using in order to use the long literal.
+- Integer literals & explicit cast: Literal and explicit cast must be used. Take into account the architecture you are using
+in order to use the long literal.
 
 >     (uint16_t)1U /* yes! */
 >     (int16_t)1 /* yes! */
 >     (uint32_t)1UL /* yes! if 32 bits is considered long in the device architecture */
 >     (int32_t)1L /* yes! if 32 bits is considered long in the device architecture */
 
-- Floating point literals & explicit cast: We always add at least one digit before and after the dot, e.g. Furthermore, literal and explicit cast must be used for constants.
+- Floating point literals & explicit cast: We always add at least one digit before and after the dot, e.g. Furthermore,
+literal and explicit cast must be used for constants.
 
 >     0.0 /* no! */
 >     (float)0.0f /* yes! */
@@ -322,17 +336,19 @@ Avoid the use of global variables
 >      
 >     int32_t
 >     ComputeRegressionLine(int32_t* pi32DataArrayX, int32_t* pi32DataArrayY, 
->     					    int32_t* pi32Result, int32_t* pi32Variance);
+>                           int32_t* pi32Result, int32_t* pi32Variance);
 
 - Functions without any parameters must use the keyword void.
 
->     INT32
+>     int32_t
 >     MyFunction(void);
 
 
 **Braces are indented based on the Allman style with some modifications**
 
-- All (for, while, if) statements must be written by placing a bracket at the next line of the statement definition line. The last line must close the statement with another bracket at the same indentation level as the statement definition line. Brackets should be used even if the statement contains only one instruction.
+- All (for, while, if) statements must be written by placing a bracket at the next line of the statement definition line.
+The last line must close the statement with another bracket at the same indentation level as the statement definition line.
+Brackets should be used even if the statement contains only one instruction.
 
 >     if (u16ElapsedTime > SOME_THRESHOLD)
 >     {
@@ -364,7 +380,7 @@ Avoid the use of global variables
 >     
 >     if (isInterruptEnabled == false)
 >     {
->     	
+>         
 >     }
 >     else
 >     {
@@ -375,7 +391,7 @@ Avoid the use of global variables
 >     
 >     if (isInterruptEnabled != false)
 >     {
->     	
+>         
 >     }
 >     else
 >     {
@@ -383,18 +399,20 @@ Avoid the use of global variables
 >     }
 
 - Default case must be always present when using switch.
-- A case could finish without a break to allow falling through another case but it should be clearly documented as as in the following example. If it's empty it has to be clearly documented also.
+- A case could finish without a break to allow falling through another case but it should be clearly documented as in
+the following example. A non-empty case is not allowed to end without a break (fallthrough not allowed).
+If it's empty it has to be clearly documented also.
 
 >     switch (...)
 >     {
 >         case SOME_CASE_1:
->     	      /* Fallthrough */
+>               /* Fallthrough */
 >         case SOME_CASE_2:
->     	      /* Code */
->     	      break;
+>               /* Code */
+>               break;
 >         default:
->     		  /* Nothing */
->     	      break;
+>               /* Nothing */
+>               break;
 >     }
 >     
 
