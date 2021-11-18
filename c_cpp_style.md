@@ -33,7 +33,7 @@ up to standard desktop PCs. Details about C/C++ version and extensions must be d
 >     #endif /* FILE1_H */
 
 - Header files must not be included in projects as files. They must be linked to project the include path.
-- Headers and source files must follow the next template
+- Headers and source files must follow the next template:
 
 >     /* File documentation */
 >     
@@ -45,7 +45,7 @@ up to standard desktop PCs. Details about C/C++ version and extensions must be d
 >     
 >     /* Local variables declaration (for .c) */
 >     
->     /* Local function prototypes declaration(for .c) */
+>     /* Local function prototypes declaration (for .c) */
 >     
 >     /* Global Function declaration / definition */
 >     
@@ -53,16 +53,15 @@ up to standard desktop PCs. Details about C/C++ version and extensions must be d
 
 ### Scoping
 
-- Avoid static and global variables. Sometimes there's no alternative, but if there is an alternative, then use it, no matter how much effort it involves.
+- Avoid the use of global variables. Sometimes there's no alternative, but if there is an alternative, then use it, no matter how much effort it involves.
+Usually, the use of global variables means an incorrect design of the code architecture in modularity terms.
 - All local variables must be defined at the top of the C file and declared as static.
-Avoid the use of global variables
-- Avoid the use of global variables. Usually, the use of global variables means an incorrect design of the code architecture in modularity terms.
 - If a variable could be modified from two different contexts, as in multithreading applications or in code with interrupts, it should be declared as volatile.
 - A function variable should be placed in the narrowest possible scope.
-- All local functions must be defined in the C file and declared as static at the top of the file.
 - All global functions must be defined in the C file and declared in the header file (*.h).
-- Local Macros should be declared in C file.
-- Global macros should be declared in header file (*.h).
+- All local functions must be declared as static at the top of the C file and also defined as static below in the file.
+- Global macros must be declared in the header file (*.h).
+- Local macros must be declared in the C file.
 
 ### Classes
 
