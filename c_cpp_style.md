@@ -1,17 +1,29 @@
 The next rules have been defined taking into account the rules from:
 
-- **MISRA-C**: 2012
-- **MISRA-C++**: 2008
+- **MISRA-C 2012**
+- **AUTOSAR C++14**
 
 If for any reason any of the below rules conflicts with a MISRA rule, this last one prevails.
-
 
 ### Version
 Version of C/C++ code use are strongly linked with the development platform. Ingenia repositories cover from very low performance micro-controllers
 up to standard desktop PCs. Details about C/C++ version and extensions must be defined on every repository.
 
+### Naming Conventions
+
+#### Hungarian Notation
+ - For bool variables and parameters use "b" prefix.
+ - For char variables and parameters use "c" prefix
+ - For double-precision floating point variables and parameters use "d" prefix.
+ - For floating point variables and parameters use "f" prefix.
+ - For class declaration use "C" prefix.
+ - For structs declaration use "S" prefix.
+ - For int variables and parameters use "i" prefix.
+ - For pointers use "p" prefix.
+ - For unsigned types use "u" prefix.
+
 ### Types
-- Use <stdint.h> types whenever is possible.
+- MISRA C 2012 - Dir 4.6 - Use typedefs from stdint.h instead of declaring your own in C99 code
 - if <stdint.h> is not available, basic types must include the size information.
 
 >     unsigned integer /* Not allowed */
@@ -455,3 +467,11 @@ If it's empty it has to be clearly documented also.
 
 
 ### Exceptions to the rules
+
+#### MISRA C 2021 - RULE 18.4
+The implementation of this advisory rule might make the code less readable in some cases and more difficult to understand and evaluate by the reviewers because it requires additional characters and variables to fullfil it.
+This rule is also taken care of the misunderstanding of pointers arithmetic. Therefore developers must add a comment where this arithmetic is applied to indicate how the bounds of an array/variables are not overpassed.
+
+#### MISRA C 2021 - RULE 19.2
+Unions are a very useful tool in some very specific situations. In some cases it helps to decrease some logic arithmetics and decrease the complexity of functions. The main concern of unions is how the elements are aligned in memory and how to access to each element correctly.
+Developers that create a union must add a comment indicating how members are aligned in memory and what is the proper way to access them.
