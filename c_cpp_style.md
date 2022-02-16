@@ -12,173 +12,12 @@ Regading C++ language, only a subset of features are allowed. This file contains
 Next chapters describe the more relevant rules for C and the minimum subset of C++ features.
 
 ### Version
+
 Version of C/C++ code use are strongly linked with the development platform. Ingenia repositories cover from very low performance micro-controllers
 up to standard desktop PCs. Details about C/C++ version and extensions must be defined on every repository.
 
-### Naming Conventions
-
-#### Hungarian Notation
- - For bool variables and parameters use "b" prefix.
- - For char variables and parameters use "c" prefix
- - For double-precision floating point variables and parameters use "d" prefix.
- - For floating point variables and parameters use "f" prefix.
- - For class declaration use "C" prefix.
- - For structs declaration use "S" prefix.
- - For int variables and parameters use "i" prefix.
- - For pointers use "p" prefix.
- - For unsigned types use "u" prefix.
- - Vriables must indicate its size in bits after the prefix
- - Variables names are camel-case
-  
->     uint32_t u32VarNum1
->     int16_t i16VarNum2
->     float f32VarNum3
-
-- Filenames should be all lowercase and can include optionally underscores '_'. 
-- Function names are also written in camel-case, but always begin with a capital letter.
-
->     int16_t
->     GetDataFile(void);
->       
->     int32_t
->     ComputeRectangleArea(int32_t i32Width, int32_t i32Height);
-
-
-- Class names are written in camel-case, but always begin with a capital letter, e.g. MyClassName
-- Namespaces are also written in camel-case, but always begin with a capital letter. e.g. MyNamespace
-- In C language, namespaces can be simulated by adding a prefix + underscore before the function / variable.
-- Leading or trailing underscores are never allowed in variable names.
-- All #define constants shall be in uppercase
-- Enumerates types should start with an 'E' capital letter and have a capital letter for each new word, with no underscores: 
-
->     typedef enum 
->     {
->         ERROR_OVERCURRENT = 0,
->         ERROR_OVERVOLTAGE
->     }EErrorCodes;
-
-- Union types should start with an 'U' capital letter and variables inside should be camel case, without underscores:
-
->     typedef union 
->     {
->         uint16_t u16Word;
->         uint32_t u32DWord;
->         floatfFloat;
->     }UMsg;
-
-- The variables from an enumeration, union or non-standard data type start with the same prefix than the type but lower case:
-
->     TLineDefinition tNewLine;
->     EErrorCodes eErrCode;
->     UMsg uRxMsg;
-
-- To simplify its identification, pointer variables must start with a  'p' lower case letter.
-
->     int16_t* pi16Pointer;
-
-
-### Types
-- MISRA C 2012 - Dir 4.6 - Use typedefs from stdint.h instead of declaring your own in C99 code
-- if <stdint.h> is not available, basic types must include the size information.
-
->     unsigned integer /* Not allowed */
->     UINT32 /* Allowed */
->     uint32_t /* Allowed and preferred */
-
-> This is very critical in embedded systems where the size of an integer varies between MCUs.
-
-### Header and source files
-- In general, every .c file should have an associated .h file.
-- Header files must not be included in projects as files. They must be linked to project the include path.
-- Headers and source files must follow the next template
-
->     /* File documentation */
->     
->     /* Includes */
->     
->     /* Defines & macros */
->     
->     /* Global variables declaration */
->     
->     /* Local variables declaration (for .c) */
->     
->     /* Local function prototypes declaration(for .c) */
->     
->     /* Global Function declaration / definition */
->     
->     /* Local function definition (for .c) */
-
-
-- AUTOSAR A3-3-1 & A3-1-1 - Objects or functions with external linkage (including members of named namespaces) shall be declared in a header file.
-- AUTOSAR A16-2-2 - A file should directly include only the headers that contain declarations and definitions required to compile that file.
-- MISRA C 2012 - Dir 4.1 - All header files should have to define guards to prevent multiple inclusion. The format of the symbol name should be FILE_NAME_H.
-
->     #ifndef FILE1_H 
-> 
->     #define FILE1_H
->     ...
->     #endif /* FILE1_H */
-
-
-
-### Scoping
-
-- MISRA C 2012 - Rule 8.9 - Avoid static and global variables. Sometimes there's no alternative, but if there is an alternative, then use it, no matter how much effort it involves.
-- A function variable should be placed in the narrowest possible scope.
-- All local variables must be defined at the top of the C file and declared as static.
-Avoid the use of global variables
-- If a variable could be modified from two different contexts, e. g. in a code with interrupts, it should be declared as volatile.
-
-- All local functions must be defined in the C file and declared as static at the top of the file.
-- All global functions must be defined in the C file and declared in the header file (*.h).
-- Local Macros should be declared in C file.
-- Global macros should be declared in header file (*.h).
-
-### Classes
-
-- Declare a class's public section first. Any protected items come next, and then private ones.
-- Always include the public/private/protected keyword for each inherited class
-- Any private methods should go towards the end of the class, after the member variables.
-
-### Structs
-
-- AUTOSAR - A11-0-2 - Structs should only contain public data members and should not be a base or inherit
-
-### Loops
-- For loops must declare the iterating variables before the loop, to give support for C89.
->    uint8_t u8i;
->    for (u8i = (uint8_t)0U; u8i <= (uint8_t)3U; u8i++)
->    {
->        
->    }
-
-### Comments
-
-- All files must contain a brief description about the functionality.
-
->     /**
->      * @file FileName.c
->      * @brief Description of the main objective of this file
->      * @copyright Ingenia
->      */ 
-
-- Comments must be written using Doxygen tags using the /** prefix.
-- Every element in a header file should be preceded by a comment.
-- Comments are not mandatory inside implementation files (.c, .cpp...)
-- Use the following general template for functions documentation:
-
->     /**
->      * A brief description, one sentence, one line.
->      *
->      * @param[in] p1description of parameter one
->      * @param[out] p2   description of parameter two
->      * @param[in,out] p3description of parameter three
->      *
->      * @retval  Description of the returned value, must be omitted if
->      *          a function returns void.
->      */ 
-
 ### Formatting
+
 - Only one statement per line is allowed.
 - Indentation should be done using 4 spaces.
 - TAB characters are completely forbidden.
@@ -403,13 +242,181 @@ If it's empty it has to be clearly documented also.
 >     
 >     #endif /* FILE1_H */
 
+### Comments
+
+- All files must contain a brief description about the functionality.
+
+>     /**
+>      * @file FileName.c
+>      * @brief Description of the main objective of this file
+>      * @copyright Ingenia
+>      */ 
+
+- Comments must be written using Doxygen tags using the /** prefix.
+- Every element in a header file should be preceded by a comment.
+- Comments are not mandatory inside implementation files (.c, .cpp...)
+- Use the following general template for functions documentation:
+
+>     /**
+>      * A brief description, one sentence, one line.
+>      *
+>      * @param[in] p1description of parameter one
+>      * @param[out] p2   description of parameter two
+>      * @param[in,out] p3description of parameter three
+>      *
+>      * @retval  Description of the returned value, must be omitted if
+>      *          a function returns void.
+>      */ 
+
+### Naming Conventions
+
+#### Hungarian Notation
+
+ - For bool variables and parameters use "b" prefix.
+ - For char variables and parameters use "c" prefix
+ - For double-precision floating point variables and parameters use "d" prefix.
+ - For floating point variables and parameters use "f" prefix.
+ - For class declaration use "C" prefix.
+ - For structs declaration use "S" prefix.
+ - For int variables and parameters use "i" prefix.
+ - For pointers use "p" prefix.
+ - For unsigned types use "u" prefix.
+ - Vriables must indicate its size in bits after the prefix
+ - Variables names are camel-case
+  
+>     uint32_t u32VarNum1
+>     int16_t i16VarNum2
+>     float f32VarNum3
+
+- Filenames should be all lowercase and can include optionally underscores '_'. 
+- Function names are also written in camel-case, but always begin with a capital letter.
+
+>     int16_t
+>     GetDataFile(void);
+>       
+>     int32_t
+>     ComputeRectangleArea(int32_t i32Width, int32_t i32Height);
+
+
+- Class names are written in camel-case, but always begin with a capital letter, e.g. MyClassName
+- Namespaces are also written in camel-case, but always begin with a capital letter. e.g. MyNamespace
+- In C language, namespaces can be simulated by adding a prefix + underscore before the function / variable.
+- Leading or trailing underscores are never allowed in variable names.
+- All #define constants shall be in uppercase
+- Enumerates types should start with an 'E' capital letter and have a capital letter for each new word, with no underscores: 
+
+>     typedef enum 
+>     {
+>         ERROR_OVERCURRENT = 0,
+>         ERROR_OVERVOLTAGE
+>     }EErrorCodes;
+
+- Union types should start with an 'U' capital letter and variables inside should be camel case, without underscores:
+
+>     typedef union 
+>     {
+>         uint16_t u16Word;
+>         uint32_t u32DWord;
+>         floatfFloat;
+>     }UMsg;
+
+- The variables from an enumeration, union or non-standard data type start with the same prefix than the type but lower case:
+
+>     TLineDefinition tNewLine;
+>     EErrorCodes eErrCode;
+>     UMsg uRxMsg;
+
+- To simplify its identification, pointer variables must start with a  'p' lower case letter.
+
+>     int16_t* pi16Pointer;
+
+### Rules highlights
+
+#### Types
+
+- MISRA C 2012 - Dir 4.6 - Use typedefs from stdint.h instead of declaring your own in C99 code
+- if <stdint.h> is not available, basic types must include the size information.
+
+>     unsigned integer /* Not allowed */
+>     UINT32 /* Allowed */
+>     uint32_t /* Allowed and preferred */
+
+> This is very critical in embedded systems where the size of an integer varies between MCUs.
+
+#### Header and source files
+
+- In general, every .c file should have an associated .h file.
+- Header files must not be included in projects as files. They must be linked to project the include path.
+- Headers and source files must follow the next template
+
+>     /* File documentation */
+>     
+>     /* Includes */
+>     
+>     /* Defines & macros */
+>     
+>     /* Global variables declaration */
+>     
+>     /* Local variables declaration (for .c) */
+>     
+>     /* Local function prototypes declaration(for .c) */
+>     
+>     /* Global Function declaration / definition */
+>     
+>     /* Local function definition (for .c) */
+
+
+- AUTOSAR A3-3-1 & A3-1-1 - Objects or functions with external linkage (including members of named namespaces) shall be declared in a header file.
+- AUTOSAR A16-2-2 - A file should directly include only the headers that contain declarations and definitions required to compile that file.
+- MISRA C 2012 - Dir 4.1 - All header files should have to define guards to prevent multiple inclusion. The format of the symbol name should be FILE_NAME_H.
+
+>     #ifndef FILE1_H 
+> 
+>     #define FILE1_H
+>     ...
+>     #endif /* FILE1_H */
+
+
+#### Scoping
+
+- MISRA C 2012 - Rule 8.9 - Avoid static and global variables. Sometimes there's no alternative, but if there is an alternative, then use it, no matter how much effort it involves.
+- A function variable should be placed in the narrowest possible scope.
+- All local variables must be defined at the top of the C file and declared as static.
+Avoid the use of global variables
+- If a variable could be modified from two different contexts, e. g. in a code with interrupts, it should be declared as volatile.
+
+- All local functions must be defined in the C file and declared as static at the top of the file.
+- All global functions must be defined in the C file and declared in the header file (*.h).
+- Local Macros should be declared in C file.
+- Global macros should be declared in header file (*.h).
+
+#### Classes
+
+- Declare a class's public section first. Any protected items come next, and then private ones.
+- Always include the public/private/protected keyword for each inherited class
+- Any private methods should go towards the end of the class, after the member variables.
+
+#### Structs
+
+- AUTOSAR - A11-0-2 - Structs should only contain public data members and should not be a base or inherit
+
+#### Loops
+
+- For loops must declare the iterating variables before the loop, to give support for C89.
+>    uint8_t u8i;
+>    for (u8i = (uint8_t)0U; u8i <= (uint8_t)3U; u8i++)
+>    {
+>        
+>    }
 
 ### Exceptions to the rules
 
 #### MISRA C 2021 - RULE 18.4
+
 The implementation of this advisory rule might make the code less readable in some cases and more difficult to understand and evaluate by the reviewers because it requires additional characters and variables to fullfil it.
 This rule is also taken care of the misunderstanding of pointers arithmetic. Therefore developers must add a comment where this arithmetic is applied to indicate how the bounds of an array/variables are not overpassed.
 
 #### MISRA C 2021 - RULE 19.2
+
 Unions are a very useful tool in some very specific situations. In some cases it helps to decrease some logic arithmetics and decrease the complexity of functions. The main concern of unions is how the elements are aligned in memory and how to access to each element correctly.
 Developers that create a union must add a comment indicating how members are aligned in memory and what is the proper way to access them.
